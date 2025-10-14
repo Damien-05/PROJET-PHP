@@ -1,0 +1,22 @@
+# Fichiers temporaires
+*.tmp
+*.log
+
+# Fichiers de configuration sensibles
+admin/config/database.php
+
+# Dossier uploads (fichiers volumineux)
+admin/uploads/*
+!admin/uploads/README.md
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Sauvegardes
+admin/backups/*
+!admin/backups/.gitkeep
+
+# Fichiers IDE
+.vscode/
+.idea/

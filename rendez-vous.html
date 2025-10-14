@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prendre Rendez-vous - Cabinet Dentaire Dr. Dupont</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232c5aa0'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z'/></svg>">
+    <style>
+        .appointment-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 0 1rem;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .step.active .step-number {
+            background: #2c5aa0;
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        .service-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .service-option:hover {
+            border-color: #2c5aa0;
+            background-color: #f8f9ff;
+        }
+        
+        .service-option.selected {
+            border-color: #2c5aa0;
+            background-color: #f0f8ff;
+        }
+        
+        .service-option h4 {
+            color: #2c5aa0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .time-slot {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .time-slot:hover {
+            border-color: #2c5aa0;
+            background-color: #f8f9ff;
+        }
+        
+        .time-slot.selected {
+            border-color: #2c5aa0;
+            background-color: #2c5aa0;
+            color: white;
+        }
+        
+        .time-slot.unavailable {
+            background-color: #f5f5f5;
+            color: #999;
+            cursor: not-allowed;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .calendar-day {
+            background: white;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .calendar-day:hover {
+            background: #f8f9ff;
+        }
+        
+        .calendar-day.selected {
+            background: #2c5aa0;
+            color: white;
+        }
+        
+        .calendar-day.unavailable {
+            background: #f5f5f5;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .calendar-day.today {
+            font-weight: bold;
+            border: 2px solid #4CAF50;
+        }
+        
+        .calendar-header {
+            background: #2c5aa0;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">🦷 Dr. Dupont</a>
+                <nav>
+                    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                    <ul id="nav-menu">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="rendez-vous.html" class="active">Rendez-vous</a></li>
+                        <li><a href="a-propos.html">À propos</a></li>
+                        <li><a href="actualites.html">Actualités</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <h1>Prendre Rendez-vous</h1>
+                <div class="appointment-form">
+                    <!-- Indicateur d'étapes -->
+                    <div class="step-indicator">
+                        <div class="step active" id="step-indicator-1">
+                            <div class="step-number">1</div>
+                            <span>Service</span>
+                        </div>
+                        <div class="step" id="step-indicator-2">
+                            <div class="step-number">2</div>
+                            <span>Date & Heure</span>
+                        </div>
+                        <div class="step" id="step-indicator-3">
+                            <div class="step-number">3</div>
+                            <span>Informations</span>
+                        </div>
+                        <div class="step" id="step-indicator-4">
+                            <div class="step-number">4</div>
+                            <span>Confirmation</span>
+                        </div>
+                    </div>
+
+                    <form id="appointmentForm">
+                        <!-- Étape 1: Choix du service -->
+                        <div class="form-step active" id="step-1">
+                            <h2>Choisissez votre consultation</h2>
+                            <p>Sélectionnez le type de consultation dont vous avez besoin :</p>
+                            
+                            <div class="service-option" data-service="consultation" data-duration="30" data-price="60">
+                                <h4>Consultation générale</h4>
+                                <p>Examen bucco-dentaire complet, diagnostic et conseil</p>
+                                <small>Durée : 30 min • Tarif : 60€</small>
+                            </div>
+                            
+                            <div class="service-option" data-service="detartrage" data-duration="45" data-price="80">
+                                <h4>Détartrage et polissage</h4>
+                                <p>Nettoyage professionnel des dents et prévention</p>
+                                <small>Durée : 45 min • Tarif : 80€</small>
+                            </div>
+                            
+                            <div class="service-option" data-service="soins" data-duration="60" data-price="120">
+                                <h4>Soins dentaires</h4>
+                                <p>Traitement des caries, obturations</p>
+                                <small>Durée : 60 min • Tarif : 120€</small>
+                            </div>
+                            
+                            <div class="service-option" data-service="orthodontie" data-duration="45" data-price="150">
+                                <h4>Consultation orthodontie</h4>
+                                <p>Évaluation et suivi des traitements orthodontiques</p>
+                                <small>Durée : 45 min • Tarif : 150€</small>
+                            </div>
+                            
+                            <div class="service-option" data-service="esthetique" data-duration="90" data-price="200">
+                                <h4>Esthétique dentaire</h4>
+                                <p>Blanchiment, facettes, embellissement du sourire</p>
+                                <small>Durée : 90 min • Tarif : 200€</small>
+                            </div>
+                            
+                            <div class="service-option" data-service="urgence" data-duration="30" data-price="80">
+                                <h4>Urgence dentaire</h4>
+                                <p>Prise en charge rapide des douleurs et urgences</p>
+                                <small>Durée : 30 min • Tarif : 80€</small>
+                            </div>
+                        </div>
+
+                        <!-- Étape 2: Choix de la date et heure -->
+                        <div class="form-step" id="step-2">
+                            <h2>Choisissez votre date et heure</h2>
+                            
+                            <div class="form-row">
+                                <div>
+                                    <label>Mois :</label>
+                                    <select class="form-control" id="monthSelect" onchange="generateCalendar()">
+                                        <option value="0">Janvier 2025</option>
+                                        <option value="1">Février 2025</option>
+                                        <option value="2">Mars 2025</option>
+                                        <option value="3">Avril 2025</option>
+                                        <option value="4">Mai 2025</option>
+                                        <option value="5">Juin 2025</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="calendar-grid" id="calendar">
+                                <!-- Le calendrier sera généré par JavaScript -->
+                            </div>
+                            
+                            <div id="timeSlots" style="display: none;">
+                                <h3>Créneaux disponibles :</h3>
+                                <div class="time-slots" id="availableSlots">
+                                    <!-- Les créneaux seront générés par JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Étape 3: Informations personnelles -->
+                        <div class="form-step" id="step-3">
+                            <h2>Vos informations</h2>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">Prénom *</label>
+                                    <input type="text" id="firstName" name="firstName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Nom *</label>
+                                    <input type="text" id="lastName" name="lastName" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email *</label>
+                                    <input type="email" id="email" name="email" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Téléphone *</label>
+                                    <input type="tel" id="phone" name="phone" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="birthDate">Date de naissance</label>
+                                <input type="date" id="birthDate" name="birthDate" class="form-control">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="reason">Motif de consultation</label>
+                                <textarea id="reason" name="reason" class="form-control" rows="3" placeholder="Décrivez brièvement le motif de votre consultation..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="newPatient" name="newPatient" style="margin-right: 0.5rem;">
+                                    Je suis un nouveau patient
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="newsletter" name="newsletter" style="margin-right: 0.5rem;">
+                                    Je souhaite recevoir les actualités du cabinet par email
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Étape 4: Confirmation -->
+                        <div class="form-step" id="step-4">
+                            <h2>Récapitulatif de votre rendez-vous</h2>
+                            
+                            <div id="appointmentSummary">
+                                <!-- Le récapitulatif sera généré par JavaScript -->
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="terms" name="terms" required style="margin-right: 0.5rem;">
+                                    J'accepte les <a href="#" style="color: #2c5aa0;">conditions générales</a> et la <a href="#" style="color: #2c5aa0;">politique de confidentialité</a> *
+                                </label>
+                            </div>
+                            
+                            <div style="background: #f0f8ff; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                                <h4 style="color: #2c5aa0; margin-bottom: 1rem;">Informations importantes :</h4>
+                                <ul style="padding-left: 1.5rem; color: #666;">
+                                    <li>Merci d'arriver 10 minutes avant votre rendez-vous</li>
+                                    <li>En cas d'empêchement, prévenez-nous au moins 24h à l'avance</li>
+                                    <li>N'oubliez pas votre carte vitale et votre mutuelle</li>
+                                    <li>Un SMS de rappel vous sera envoyé la veille</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Message de succès -->
+                        <div class="form-step" id="success-step">
+                            <div class="success-message">
+                                <div class="success-icon">✅</div>
+                                <h2>Rendez-vous confirmé !</h2>
+                                <p>Votre rendez-vous a été enregistré avec succès. Vous recevrez un email de confirmation dans quelques minutes.</p>
+                                <p>Un SMS de rappel vous sera envoyé la veille de votre rendez-vous.</p>
+                                <div style="margin-top: 2rem;">
+                                    <a href="index.html" class="btn btn-primary">Retour à l'accueil</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Boutons de navigation -->
+                        <div class="nav-buttons" id="navigationButtons">
+                            <button type="button" class="btn btn-secondary" id="prevBtn" onclick="previousStep()" style="display: none;">Précédent</button>
+                            <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextStep()">Suivant</button>
+                            <button type="submit" class="btn" id="submitBtn" style="display: none;">Confirmer le rendez-vous</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Cabinet Dentaire Dr. Dupont</h3>
+                    <p>123 Avenue de la République<br>75011 Paris</p>
+                    <p>📞 01 23 45 67 89</p>
+                    <p>📧 contact@cabinet-dupont.fr</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Horaires</h3>
+                    <p>Lundi - Jeudi : 8h00 - 18h00</p>
+                    <p>Vendredi : 8h00 - 17h00</p>
+                    <p>Samedi : 9h00 - 12h00</p>
+                    <p>Dimanche : Fermé</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Urgences</h3>
+                    <p>En cas d'urgence dentaire :</p>
+                    <p style="font-size: 1.2rem; color: #4CAF50;"><strong>📞 06 12 34 56 78</strong></p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem; margin-top: 2rem;">
+                <p>&copy; 2025 Cabinet Dentaire Dr. Dupont. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
