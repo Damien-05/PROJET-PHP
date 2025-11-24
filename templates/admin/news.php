@@ -46,7 +46,7 @@ require TEMPLATE_PATH . '/admin/layout/header.php';
         <span class="close" onclick="document.getElementById('add-news-modal').style.display='none'">&times;</span>
         <h3>Ajouter une nouvelle actualité</h3>
         
-        <form method="POST" action="<?= APP_URL ?>/admin/news/create" class="form">
+        <form method="POST" action="<?= APP_URL ?>/admin/news/create" class="form" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Titre</label>
                 <input type="text" id="title" name="title" required>
@@ -60,6 +60,12 @@ require TEMPLATE_PATH . '/admin/layout/header.php';
             <div class="form-group">
                 <label for="content">Contenu</label>
                 <textarea id="content" name="content" rows="8" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Image de l'article</label>
+                <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/jpg">
+                <small style="color: #666;">Format: JPG, PNG - Taille max: 2MB</small>
             </div>
 
             <div class="form-group">

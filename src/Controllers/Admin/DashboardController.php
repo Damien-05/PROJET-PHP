@@ -130,10 +130,36 @@ class DashboardController
             redirect('/admin/news');
         }
 
+        $imagePath = null;
+
+        // Gestion de l'upload d'image
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            $maxSize = 2 * 1024 * 1024; // 2MB
+
+            if (in_array($_FILES['image']['type'], $allowedTypes) && $_FILES['image']['size'] <= $maxSize) {
+                $uploadDir = PUBLIC_PATH . '/assets/images/news/';
+                
+                // Créer le dossier s'il n'existe pas
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0755, true);
+                }
+
+                $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                $filename = uniqid('news_') . '.' . $extension;
+                $destination = $uploadDir . $filename;
+
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
+                    $imagePath = '/DENTISTE/assets/images/news/' . $filename;
+                }
+            }
+        }
+
         $this->newsModel->create([
             'title' => $_POST['title'],
             'content' => $_POST['content'],
             'excerpt' => $_POST['excerpt'],
+            'image' => $imagePath,
             'author_id' => Auth::user()['id'],
             'is_published' => isset($_POST['is_published']),
             'published_at' => isset($_POST['is_published']) ? date('Y-m-d H:i:s') : null,

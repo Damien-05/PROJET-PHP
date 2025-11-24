@@ -68,6 +68,7 @@ CREATE TABLE news (
     title VARCHAR(200) NOT NULL,
     content TEXT NOT NULL,
     excerpt VARCHAR(500),
+    image VARCHAR(255) DEFAULT NULL,
     author_id INT,
     is_published BOOLEAN DEFAULT FALSE,
     published_at DATETIME,

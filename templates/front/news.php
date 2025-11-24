@@ -17,15 +17,19 @@ require TEMPLATE_PATH . '/layout/header.php';
         <?php else: ?>
             <div class="news-grid-modern">
                 <?php foreach ($news as $article): 
-                    // Générer une image aléatoire pour chaque article
-                    $newsImages = [
-                        'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop&q=80',
-                        'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&h=400&fit=crop&q=80',
-                        'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&h=400&fit=crop&q=80',
-                        'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=600&h=400&fit=crop&q=80'
-                    ];
-                    $imageIndex = $article['id'] % count($newsImages);
-                    $articleImage = $newsImages[$imageIndex];
+                    // Utiliser l'image uploadée ou une image par défaut
+                    if (!empty($article['image'])) {
+                        $articleImage = $article['image'];
+                    } else {
+                        $newsImages = [
+                            'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop&q=80',
+                            'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&h=400&fit=crop&q=80',
+                            'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&h=400&fit=crop&q=80',
+                            'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=600&h=400&fit=crop&q=80'
+                        ];
+                        $imageIndex = $article['id'] % count($newsImages);
+                        $articleImage = $newsImages[$imageIndex];
+                    }
                 ?>
                     <article class="news-card-modern">
                         <div class="news-image-wrapper">
