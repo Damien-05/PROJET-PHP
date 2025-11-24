@@ -19,6 +19,7 @@ require TEMPLATE_PATH . '/admin/layout/header.php';
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Image</th>
                     <th>Titre</th>
                     <th>Auteur</th>
                     <th>Date de publication</th>
@@ -29,6 +30,13 @@ require TEMPLATE_PATH . '/admin/layout/header.php';
                 <?php foreach ($news as $article): ?>
                     <tr>
                         <td><?= $article['id'] ?></td>
+                        <td>
+                            <?php if (!empty($article['image'])): ?>
+                                <img src="<?= $article['image'] ?>" alt="<?= escape($article['title']) ?>" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;">
+                            <?php else: ?>
+                                <span style="color: #999; font-style: italic;">Aucune</span>
+                            <?php endif; ?>
+                        </td>
                         <td><?= escape($article['title']) ?></td>
                         <td><?= escape($article['author_name'] ?? 'N/A') ?></td>
                         <td><?= $article['published_at'] ? date('d/m/Y H:i', strtotime($article['published_at'])) : '-' ?></td>
