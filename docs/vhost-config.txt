@@ -1,0 +1,16 @@
+# Configuration VirtualHost (à ajouter dans httpd-vhosts.conf)
+# Ce fichier sert de documentation uniquement
+
+<VirtualHost *:80>
+    ServerName localhost
+    DocumentRoot "C:/xampp/htdocs/DENTISTE/public"
+    
+    <Directory "C:/xampp/htdocs/DENTISTE/public">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+    
+    ErrorLog "logs/dentiste-error.log"
+    CustomLog "logs/dentiste-access.log" common
+</VirtualHost>
