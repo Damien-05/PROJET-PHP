@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?= $metaDescription ?? 'Cabinet dentaire Dr. Dupont - Prenez rendez-vous en ligne' ?>">
     <title><?= $pageTitle ?? 'Cabinet Dr. Dupont' ?></title>
-    <link rel="stylesheet" href="/DENTISTE/public/assets/css/style.css">
+    <link rel="stylesheet" href="/DENTISTE/public/assets/css/style.css?v=<?= time() ?>">
 </head>
 <body>
     <header>
