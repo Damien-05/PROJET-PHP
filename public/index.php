@@ -54,6 +54,17 @@ $router->get('/api/available-slots', function() {
     $controller->getAvailableSlots();
 });
 
+// Routes API news
+$router->get('/api/news', function() {
+    $controller = new \App\Controllers\Api\NewsApiController();
+    $controller->list();
+});
+
+$router->get('/api/news/{id}', function($id) {
+    $controller = new \App\Controllers\Api\NewsApiController();
+    $controller->show((int)$id);
+});
+
 // Routes authentification patient
 $router->get('/login', function() {
     $controller = new PatientAuthController();
