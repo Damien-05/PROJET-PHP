@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?= $metaDescription ?? 'Cabinet dentaire Dr. Dupont - Prenez rendez-vous en ligne' ?>">
     <title><?= $pageTitle ?? 'Cabinet Dr. Dupont' ?></title>
-    <link rel="stylesheet" href="/DENTISTE/public/assets/css/style.css?v=2.0">
+    <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/style.css?v=2.0">
 </head>
 <body>
     <header>
@@ -24,7 +24,7 @@
                     <li><a href="<?= APP_URL ?>/news" class="nav-link">Actualités</a></li>
                     <li><a href="<?= APP_URL ?>/booking" class="btn btn-primary">Prendre RDV</a></li>
                     <?php if (App\Utils\Auth::check() && !App\Utils\Auth::isAdmin()): ?>
-                        <li><a href="<?= APP_URL ?>/account" class="nav-link">👤 Mon Compte</a></li>
+                        <li><a href="<?= APP_URL ?>/account" class="nav-link">👤 <?= escape(App\Utils\Auth::user()['name'] ?? 'Mon Compte') ?></a></li>
                     <?php else: ?>
                         <li><a href="<?= APP_URL ?>/login" class="nav-link">Connexion</a></li>
                     <?php endif; ?>

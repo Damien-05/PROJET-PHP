@@ -35,6 +35,7 @@ require TEMPLATE_PATH . '/layout/header.php';
                             <span>💰 <?= number_format($service['price'], 2) ?>€</span>
                         <?php endif; ?>
                     </p>
+                    <a href="<?= APP_URL ?>/booking?service=<?= $service['id'] ?>" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Prendre rendez-vous</a>
                 </div>
             <?php 
             endforeach; 

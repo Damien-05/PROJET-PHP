@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion - Administration</title>
-    <link rel="stylesheet" href="/DENTISTE/public/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/admin.css">
 </head>
 <body class="login-page">
     <div class="login-container">

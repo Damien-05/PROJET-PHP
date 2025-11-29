@@ -11,7 +11,7 @@ use App\Controllers\PatientAuthController;
 use App\Controllers\Admin\DashboardController;
 use App\Utils\Router;
 
-$router = new Router('/DENTISTE');
+$router = new Router(APP_URL);
 
 // Routes front office
 $router->get('/', function() {

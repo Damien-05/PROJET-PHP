@@ -7,8 +7,11 @@
 - Consulter les services
 - Consulter la page "À propos"
 - Consulter les actualités
-- Prendre rendez-vous
 - Consulter une actualité détaillée
+- S'inscrire / Se connecter
+- Prendre rendez-vous
+- Consulter son compte
+- Voir ses rendez-vous
 
 ### Administrateur/Équipe (Dr. Dupont)
 - Se connecter / Se déconnecter
@@ -85,6 +88,12 @@
          ├─── Consulter "À propos"
          ├─── Consulter actualités
          ├─── Lire une actualité
+         │
+         ├─── S'inscrire
+         ├─── Se connecter
+         ├─── Consulter son compte
+         ├─── Voir ses rendez-vous
+         │
          └─── Prendre rendez-vous
                  │
                  ├─── Sélectionner service

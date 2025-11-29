@@ -190,20 +190,38 @@ Le système utilise une architecture MVC (Model-View-Controller) avec programmat
 ---
 
 ### 13. AuthController
-**Responsabilité**: Gestion de l'authentification
+**Responsabilité**: Gestion de l'authentification admin
 
 **Attributs**:
 - `- userModel: User`
 
 **Méthodes**:
 - `+ __construct(): void`
-- `+ showLoginForm(): void` - Affiche le formulaire de connexion
-- `+ login(): void` - Traite la connexion
-- `+ logout(): void` - Déconnexion
+- `+ showLoginForm(): void` - Affiche le formulaire de connexion admin
+- `+ login(): void` - Traite la connexion admin
+- `+ logout(): void` - Déconnexion admin
 
 ---
 
-### 14. Admin\DashboardController
+### 14. PatientAuthController
+**Responsabilité**: Gestion de l'authentification patient
+
+**Attributs**:
+- `- patientModel: Patient`
+- `- userModel: User`
+
+**Méthodes**:
+- `+ __construct(): void`
+- `+ showLogin(): void` - Affiche le formulaire de connexion patient
+- `+ login(): void` - Traite la connexion patient
+- `+ showRegister(): void` - Affiche le formulaire d'inscription
+- `+ register(): void` - Traite l'inscription patient
+- `+ showAccount(): void` - Affiche le compte patient
+- `+ logout(): void` - Déconnexion patient
+
+---
+
+### 15. Admin\DashboardController
 **Responsabilité**: Contrôleur pour l'administration
 
 **Attributs**:
@@ -282,6 +300,13 @@ Le système utilise une architecture MVC (Model-View-Controller) avec programmat
 ┌────────────────────────────┐
 │     AuthController         │
 ├────────────────────────────┤
+│ - userModel: User          │
+└────────────────────────────┘
+
+┌────────────────────────────┐
+│  PatientAuthController     │
+├────────────────────────────┤
+│ - patientModel: Patient    │
 │ - userModel: User          │
 └────────────────────────────┘
 

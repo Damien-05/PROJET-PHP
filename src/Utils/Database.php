@@ -18,8 +18,9 @@ class Database
             
             try {
                 $dsn = sprintf(
-                    'mysql:host=%s;dbname=%s;charset=%s',
+                    'mysql:host=%s;port=%s;dbname=%s;charset=%s',
                     $config['host'],
+                    $config['port'] ?? 3306,
                     $config['dbname'],
                     $config['charset']
                 );
@@ -28,7 +29,7 @@ class Database
                     $dsn,
                     $config['username'],
                     $config['password'],
-                    $config['options']
+                    $config['options'] ?? []
                 );
             } catch (PDOException $e) {
                 die('Erreur de connexion à la base de données: ' . $e->getMessage());

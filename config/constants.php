@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 define('BASE_PATH', dirname(__DIR__));
 define('APP_NAME', 'Cabinet Dr. Dupont');
-define('APP_URL', 'http://localhost/DENTISTE');
+define('APP_URL', '');
 define('TIMEZONE', 'Europe/Paris');
 
 // Chemins

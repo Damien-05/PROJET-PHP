@@ -35,9 +35,9 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Fonction helper pour échapper les données HTML
-function escape(string $data): string
+function escape(?string $data): string
 {
-    return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars($data ?? '', ENT_QUOTES, 'UTF-8');
 }
 
 // Fonction helper pour rediriger

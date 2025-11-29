@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $pageTitle ?? 'Admin - Cabinet Dr. Dupont' ?></title>
-    <link rel="stylesheet" href="/DENTISTE/public/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/admin.css">
 </head>
 <body class="admin-body">
     <?php if (isset($hideNav) && $hideNav): ?>
