@@ -1,68 +1,68 @@
-# Application de Gestion des Rendez-vous - Cabinet Dr. Dupont
+# Appointment Management System - Dr. Dupont Dental Office
 
 ## Description
-Application web PHP/MySQL pour la gestion des rendez-vous du cabinet dentaire du Dr. Dupont.
+PHP/MySQL web application for managing appointments at Dr. Dupont's dental office.
 
-## Structure du projet
+## Project Structure
 ```
 DENTISTE/
 ├── config/           # Configuration (database, app)
-├── src/             # Code PHP orienté objet
-│   ├── Models/      # Classes métier
-│   ├── Controllers/ # Contrôleurs
-│   └── Utils/       # Utilitaires
-├── public/          # Point d'entrée (index.php)
-├── templates/       # Vues HTML/PHP
-│   ├── front/       # Pages publiques
+├── src/             # Object-oriented PHP code
+│   ├── Models/      # Business classes
+│   ├── Controllers/ # Controllers
+│   └── Utils/       # Utilities
+├── public/          # Entry point (index.php)
+├── templates/       # HTML/PHP views
+│   ├── front/       # Public pages
 │   └── admin/       # Back office
 ├── assets/          # CSS, JS, images
-├── sql/             # Schéma de base de données
-└── docs/            # Documentation et diagrammes UML
+├── sql/             # Database schema
+└── docs/            # Documentation and UML diagrams
 ```
 
 ## Installation
 
-1. **Importer la base de données**
+1. **Import the database**
 ```bash
 mysql -u root -p < sql/schema.sql
 ```
 
-2. **Configurer l'application**
-Éditer `config/database.php` avec vos identifiants MySQL.
+2. **Configure the application**
+Edit `config/database.php` with your MySQL credentials.
 
-3. **Accéder à l'application**
+3. **Access the application**
 - Front office: http://localhost/DENTISTE/
 - Back office: http://localhost/DENTISTE/admin
-- Identifiants par défaut: admin@cabinet-dupont.fr / Admin123!
+- Default credentials: admin@cabinet-dupont.fr / Admin123!
 
-## Fonctionnalités
+## Features
 
 ### Front Office
-- Page d'accueil avec présentation du cabinet
-- Prise de rendez-vous en ligne
-- Présentation des services
-- Page à propos
-- Actualités
+- Homepage with office presentation
+- Online appointment booking
+- Services presentation
+- About page
+- News section
 
 ### Back Office
-- Gestion des rendez-vous
-- Gestion des services
-- Gestion des actualités
-- Gestion des patients
-- Gestion des horaires
+- Appointment management
+- Services management
+- News management
+- Patient management
+- Schedule management
 
 ## Technologies
-- PHP 8.0+ (POO)
+- PHP 8.0+ (OOP)
 - MySQL 8.0+
 - HTML5 / CSS3
 - Responsive design
 
-## Sécurité
-- Mots de passe hashés (PASSWORD_DEFAULT)
-- Protection CSRF
-- Requêtes préparées (PDO)
-- Validation des données
-- Sessions sécurisées
+## Security
+- Hashed passwords (PASSWORD_DEFAULT)
+- CSRF protection
+- Prepared statements (PDO)
+- Data validation
+- Secure sessions
 
-## Auteur
-Projet développé dans le cadre d'une formation backend web et mobile.
+## Author
+Project developed as part of a backend web and mobile development training program.
