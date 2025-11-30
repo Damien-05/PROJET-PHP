@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?= $metaDescription ?? 'Cabinet dentaire Dr. Dupont - Prenez rendez-vous en ligne' ?>">
     <title><?= $pageTitle ?? 'Cabinet Dr. Dupont' ?></title>
-    <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/style.css?v=2.0">
+    <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/style.css?v=3.0">
 </head>
 <body>
     <header>
@@ -17,7 +17,12 @@
                         <span class="subtitle">Cabinet Dentaire</span>
                     </a>
                 </div>
-                <ul class="nav-menu">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-menu" id="navMenu">
                     <li><a href="<?= APP_URL ?>/" class="nav-link">Accueil</a></li>
                     <li><a href="<?= APP_URL ?>/services" class="nav-link">Services</a></li>
                     <li><a href="<?= APP_URL ?>/about" class="nav-link">À propos</a></li>

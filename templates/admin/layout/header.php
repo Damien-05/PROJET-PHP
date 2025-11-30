@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $pageTitle ?? 'Admin - Cabinet Dr. Dupont' ?></title>
-    <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/admin.css?v=2.0">
 </head>
 <body class="admin-body">
     <?php if (isset($hideNav) && $hideNav): ?>
@@ -15,7 +15,12 @@
             <h1>Cabinet Dr. Dupont</h1>
             <span>Administration</span>
         </div>
-        <ul class="admin-menu">
+        <button class="admin-menu-toggle" id="adminMenuToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="admin-menu" id="adminMenu">
             <li><a href="<?= APP_URL ?>/admin/dashboard">📊 Dashboard</a></li>
             <li><a href="<?= APP_URL ?>/admin/appointments">📅 Rendez-vous</a></li>
             <li><a href="<?= APP_URL ?>/admin/patients">👥 Patients</a></li>

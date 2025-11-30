@@ -43,11 +43,11 @@ require TEMPLATE_PATH . '/admin/layout/header.php';
                     foreach ($todayAppointments as $appointment): 
                     ?>
                         <tr>
-                            <td><?= date('H:i', strtotime($appointment['appointment_time'])) ?></td>
-                            <td><?= escape($appointment['first_name'] . ' ' . $appointment['last_name']) ?></td>
-                            <td><?= escape($appointment['service_title']) ?></td>
-                            <td><?= escape($appointment['phone']) ?></td>
-                            <td><span class="badge badge-<?= $appointment['status'] ?>"><?= $statusLabels[$appointment['status']] ?? $appointment['status'] ?></span></td>
+                            <td data-label="Heure"><?= date('H:i', strtotime($appointment['appointment_time'])) ?></td>
+                            <td data-label="Patient"><?= escape($appointment['first_name'] . ' ' . $appointment['last_name']) ?></td>
+                            <td data-label="Service"><?= escape($appointment['service_title']) ?></td>
+                            <td data-label="Téléphone"><?= escape($appointment['phone']) ?></td>
+                            <td data-label="Statut"><span class="badge badge-<?= $appointment['status'] ?>"><?= $statusLabels[$appointment['status']] ?? $appointment['status'] ?></span></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -73,11 +73,11 @@ require TEMPLATE_PATH . '/admin/layout/header.php';
                 <tbody>
                     <?php foreach (array_slice($upcomingAppointments, 0, 10) as $appointment): ?>
                         <tr>
-                            <td><?= date('d/m/Y', strtotime($appointment['appointment_date'])) ?></td>
-                            <td><?= date('H:i', strtotime($appointment['appointment_time'])) ?></td>
-                            <td><?= escape($appointment['first_name'] . ' ' . $appointment['last_name']) ?></td>
-                            <td><?= escape($appointment['service_title']) ?></td>
-                            <td><span class="badge badge-<?= $appointment['status'] ?>"><?= $statusLabels[$appointment['status']] ?? $appointment['status'] ?></span></td>
+                            <td data-label="Date"><?= date('d/m/Y', strtotime($appointment['appointment_date'])) ?></td>
+                            <td data-label="Heure"><?= date('H:i', strtotime($appointment['appointment_time'])) ?></td>
+                            <td data-label="Patient"><?= escape($appointment['first_name'] . ' ' . $appointment['last_name']) ?></td>
+                            <td data-label="Service"><?= escape($appointment['service_title']) ?></td>
+                            <td data-label="Statut"><span class="badge badge-<?= $appointment['status'] ?>"><?= $statusLabels[$appointment['status']] ?? $appointment['status'] ?></span></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

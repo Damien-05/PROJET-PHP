@@ -23,5 +23,8 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Mobile Menu Script -->
+    <script src="<?= APP_URL ?>/assets/js/mobile-menu.js?v=<?= time() ?>"></script>
 </body>
 </html>
